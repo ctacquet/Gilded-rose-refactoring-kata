@@ -1,62 +1,102 @@
 package com.gildedrose;
 
-class GildedRose {
-    Item[] items;
+import com.gildedrose.items.Item;
+
+public class GildedRose {
+    private String AGED_BRIE = "Aged Brie";
+    private String BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
+    private String SULFURAS = "Sulfuras, Hand of Ragnaros";
+
+    public static final int MAXIMUM_QUALITY_VALUE = 50;
+    public static final int MINIMUM_QUALITY_VALUE = 0;
+    public static final int QUALITY_DECREMENT_VALUE = 1;
+    public static final int QUALITY_INCREMENT_VALUE = 1;
+
+    public static final int SELL_IN_0_DAY = 0;
+    public static final int SELL_IN_5_DAY = 5;
+    public static final int SELL_IN_10_DAY = 10;
+
+    public Item[] items;
 
     public GildedRose(Item[] items) {
         this.items = items;
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie")
-                    && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (items[i].quality > 0) {
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].quality = items[i].quality - 1;
-                    }
-                }
+        for (Item item : items) {
+            if (SULFURAS.equals(item.name)) {
+                continue;
+            }
+
+            if (AGED_BRIE.equals(item.name)) {
+                updateAgedBrie(item);
+            } else if (BACKSTAGE.equals(item.name)) {
+                updateBackstagePass(item);
             } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
-
-                    if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
+                updateClassicItem(item);
             }
+        }
+    }
 
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
+/**   DDD programming logic :
+    public void updateQuality2() {
+        for (AbstractItem item : items) {
+            item.updateQuality();
+        }
+    }
+ */
 
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals("Aged Brie")) {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality;
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
-                }
-            }
+    private void updateAgedBrie(Item item) {
+        decreaseItemSellIn(item);
+
+        increaseQuality(item);
+
+        if (item.sellIn < 0) {
+            increaseQuality(item);
+        }
+    }
+
+    private void updateBackstagePass(Item item) {
+        decreaseItemSellIn(item);
+
+        increaseQuality(item);
+
+        if (item.sellIn < SELL_IN_10_DAY) {
+            increaseQuality(item);
+        }
+
+        if (item.sellIn < SELL_IN_5_DAY) {
+            increaseQuality(item);
+        }
+
+        if (item.sellIn < SELL_IN_0_DAY) {
+            item.quality = MINIMUM_QUALITY_VALUE;
+        }
+    }
+
+    private void updateClassicItem(Item item) {
+        decreaseItemSellIn(item);
+
+        decreaseQuality(item);
+
+        if (item.sellIn < SELL_IN_0_DAY) {
+            decreaseQuality(item);
+        }
+    }
+
+    public static void decreaseItemSellIn(Item item) {
+        item.sellIn = item.sellIn - 1;
+    }
+
+    public static void increaseQuality(Item item) {
+        if (item.quality < MAXIMUM_QUALITY_VALUE) {
+            item.quality = item.quality + QUALITY_INCREMENT_VALUE;
+        }
+    }
+
+    public static void decreaseQuality(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - QUALITY_DECREMENT_VALUE;
         }
     }
 }

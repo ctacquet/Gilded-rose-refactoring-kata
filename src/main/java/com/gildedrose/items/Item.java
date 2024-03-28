@@ -1,8 +1,10 @@
-package com.gildedrose;
+package com.gildedrose.items;
 
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode
+@SuperBuilder
 public class Item {
 
     public String name;
