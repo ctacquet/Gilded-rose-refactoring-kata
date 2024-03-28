@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class Item {
 
     public String name;
