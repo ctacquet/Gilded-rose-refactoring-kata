@@ -2,20 +2,18 @@ package com.gildedrose;
 
 import com.gildedrose.items.Item;
 
+import static com.gildedrose.Constants.AGED_BRIE;
+import static com.gildedrose.Constants.BACKSTAGE;
+import static com.gildedrose.Constants.MAXIMUM_QUALITY_VALUE;
+import static com.gildedrose.Constants.MINIMUM_QUALITY_VALUE;
+import static com.gildedrose.Constants.QUALITY_DECREMENT_VALUE;
+import static com.gildedrose.Constants.QUALITY_INCREMENT_VALUE;
+import static com.gildedrose.Constants.SELL_IN_0_DAY;
+import static com.gildedrose.Constants.SELL_IN_10_DAY;
+import static com.gildedrose.Constants.SELL_IN_5_DAY;
+import static com.gildedrose.Constants.SULFURAS;
+
 public class GildedRose {
-    private String AGED_BRIE = "Aged Brie";
-    private String BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert";
-    private String SULFURAS = "Sulfuras, Hand of Ragnaros";
-
-    public static final int MAXIMUM_QUALITY_VALUE = 50;
-    public static final int MINIMUM_QUALITY_VALUE = 0;
-    public static final int QUALITY_DECREMENT_VALUE = 1;
-    public static final int QUALITY_INCREMENT_VALUE = 1;
-
-    public static final int SELL_IN_0_DAY = 0;
-    public static final int SELL_IN_5_DAY = 5;
-    public static final int SELL_IN_10_DAY = 10;
-
     public Item[] items;
 
     public GildedRose(Item[] items) {
@@ -37,14 +35,6 @@ public class GildedRose {
             }
         }
     }
-
-/**   DDD programming logic :
-    public void updateQuality2() {
-        for (AbstractItem item : items) {
-            item.updateQuality();
-        }
-    }
- */
 
     private void updateAgedBrie(Item item) {
         decreaseItemSellIn(item);

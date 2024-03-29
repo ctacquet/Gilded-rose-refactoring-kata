@@ -1,9 +1,10 @@
 package com.gildedrose.items;
 
-import lombok.experimental.SuperBuilder;
-
-@SuperBuilder
 public class Sulfuras extends AbstractItem {
+    public Sulfuras(String name, int sellIn, int quality) {
+        super(name, sellIn, quality);
+    }
+
     @Override
     public void updateQuality() {
     }

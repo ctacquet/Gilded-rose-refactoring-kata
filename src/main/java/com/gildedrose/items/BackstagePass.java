@@ -1,16 +1,17 @@
 package com.gildedrose.items;
 
-import lombok.experimental.SuperBuilder;
-
-import static com.gildedrose.GildedRose.MINIMUM_QUALITY_VALUE;
-import static com.gildedrose.GildedRose.SELL_IN_0_DAY;
-import static com.gildedrose.GildedRose.SELL_IN_10_DAY;
-import static com.gildedrose.GildedRose.SELL_IN_5_DAY;
+import static com.gildedrose.Constants.MINIMUM_QUALITY_VALUE;
+import static com.gildedrose.Constants.SELL_IN_0_DAY;
+import static com.gildedrose.Constants.SELL_IN_10_DAY;
+import static com.gildedrose.Constants.SELL_IN_5_DAY;
 import static com.gildedrose.GildedRose.decreaseItemSellIn;
 import static com.gildedrose.GildedRose.increaseQuality;
 
-@SuperBuilder
 public class BackstagePass extends AbstractItem {
+    public BackstagePass(String name, int sellIn, int quality) {
+        super(name, sellIn, quality);
+    }
+
     @Override
     public void updateQuality() {
         decreaseItemSellIn(this);

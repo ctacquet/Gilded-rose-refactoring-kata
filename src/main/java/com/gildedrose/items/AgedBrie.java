@@ -1,12 +1,13 @@
 package com.gildedrose.items;
 
-import lombok.experimental.SuperBuilder;
-
 import static com.gildedrose.GildedRose.decreaseItemSellIn;
 import static com.gildedrose.GildedRose.increaseQuality;
 
-@SuperBuilder
 public class AgedBrie extends AbstractItem {
+    public AgedBrie(String name, int sellIn, int quality) {
+        super(name, sellIn, quality);
+    }
+
     @Override
     public void updateQuality() {
         decreaseItemSellIn(this);
